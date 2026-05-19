@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { useBooking } from "../context/BookingContext"
+import BookingService from "../services/BookingService" // Імпорт без фігурних дужок
 import styles from "./BookingForm.module.css"
 
 function BookingForm() {
-  const { selectedTrain, selectedWagon, selectedSeats, setSelectedSeats } = useBooking()
+  const { selectedTrain, selectedWagon, selectedSeats, setSelectedSeats, setBookedSeats } = useBooking()
   const [formData, setFormData] = useState({ name: "", phone: "", email: "" })
   const [errors, setErrors] = useState({})
 
@@ -16,10 +17,7 @@ function BookingForm() {
 
   const validate = () => {
     const newErrors = {}
-    
-    if (!formData.name.trim()) {
-      newErrors.name = "Будь ласка, вкажіть ім'я"
-    }
+    if (!formData.name.trim()) newErrors.name = "Будь ласка, вкажіть ім'я"
     
     const phoneRegex = /^\+?[38]?0\d{9}$/
     if (!formData.phone.trim()) {
@@ -48,6 +46,18 @@ function BookingForm() {
     }
 
     setErrors({})
+
+    const bookingData = {
+      trainId: selectedTrain.id,
+      wagonNumber: selectedWagon,
+      seats: selectedSeats,
+      passenger: formData
+    }
+
+    BookingService.saveBooking(bookingData)
+
+    const updatedSeats = BookingService.getBookedSeats(selectedTrain.id, selectedWagon)
+    setBookedSeats(updatedSeats)
     
     alert(
       `Успішно заброньовано!\n` +

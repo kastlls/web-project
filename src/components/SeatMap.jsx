@@ -1,27 +1,23 @@
+import { useEffect } from "react"
 import { useBooking } from "../context/BookingContext"
+import BookingService from "../services/BookingService" // Імпорт без фігурних дужок
 import styles from "./SeatMap.module.css"
 
 function SeatMap() {
-  const { selectedWagon, selectedSeats, setSelectedSeats } = useBooking()
+  const { selectedTrain, selectedWagon, selectedSeats, setSelectedSeats, bookedSeats, setBookedSeats } = useBooking()
 
-  // Генеруємо 24 місця для вагону
   const totalSeats = 24
 
-  // Імітуємо заброньовані місця (червоні), які змінюються залежно від номеру вагона
-  const getBookedSeats = (wagon) => {
-    if (wagon % 2 === 0) {
-      return [2, 4, 8, 12, 14, 20] // для парних вагонів
+  useEffect(() => {
+    if (selectedTrain) {
+      const seats = BookingService.getBookedSeats(selectedTrain.id, selectedWagon)
+      setBookedSeats(seats)
     }
-    return [1, 5, 9, 11, 15, 23] // для непарних вагонів
-  }
-
-  const bookedSeats = getBookedSeats(selectedWagon)
+  }, [selectedTrain, selectedWagon, setBookedSeats])
 
   const handleSeatClick = (seatNumber) => {
-    // Якщо місце вже заброньоване кимось — нічого не робимо
     if (bookedSeats.includes(seatNumber)) return
 
-    // Якщо місце вже обране нами — прибираємо його зі списку, інакше — додаємо
     if (selectedSeats.includes(seatNumber)) {
       setSelectedSeats(selectedSeats.filter((seat) => seat !== seatNumber))
     } else {
@@ -33,14 +29,12 @@ function SeatMap() {
     <div className={styles.container}>
       <h3 className={styles.title}>Оберіть місця (Вагон {selectedWagon}):</h3>
       
-      {/* Легенда кольорів */}
       <div className={styles.legend}>
         <div className={styles.legendItem}><span className={`${styles.badge} ${styles.free}`}></span> Вільне</div>
         <div className={styles.legendItem}><span className={`${styles.badge} ${styles.selected}`}></span> Обране</div>
         <div className={styles.legendItem}><span className={`${styles.badge} ${styles.booked}`}></span> Зайняте</div>
       </div>
 
-      {/* Сітка місць */}
       <div className={styles.grid}>
         {Array.from({ length: totalSeats }, (_, i) => {
           const seatNumber = i + 1

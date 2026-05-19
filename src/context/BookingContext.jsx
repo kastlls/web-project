@@ -6,6 +6,7 @@ export function BookingProvider({ children }) {
   const [selectedTrain, setSelectedTrain] = useState(null)
   const [selectedWagon, setSelectedWagon] = useState(1)
   const [selectedSeats, setSelectedSeats] = useState([])
+  const [bookedSeats, setBookedSeats] = useState([]) // Стан для збережених місць
 
   return (
     <BookingContext.Provider
@@ -15,7 +16,9 @@ export function BookingProvider({ children }) {
         selectedWagon,
         setSelectedWagon,
         selectedSeats,
-        setSelectedSeats
+        setSelectedSeats,
+        bookedSeats,
+        setBookedSeats
       }}
     >
       {children}
