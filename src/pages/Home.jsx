@@ -1,22 +1,29 @@
 import { useState } from "react"
 import trains from "../data/trains"
 import TrainList from "../components/TrainList"
+import styles from "./Home.module.css"
 
 function Home() {
   const [search, setSearch] = useState("")
 
-  const filtered = trains.filter((t) =>
-    t.number.toLowerCase().includes(search.toLowerCase()) ||
-    t.from.toLowerCase().includes(search.toLowerCase()) ||
-    t.to.toLowerCase().includes(search.toLowerCase())
-  )
+  const filtered = trains.filter((train) => {
+    // Розбиваємо пошуковий запит на окремі слова та прибираємо зайві пробіли
+    const searchWords = search.toLowerCase().trim().split(/\s+/)
+    
+    // Створюємо один суцільний рядок з даних потяга для зручного пошуку
+    const trainInfo = `${train.number} ${train.from} ${train.to}`.toLowerCase()
+
+    // Потяг підходить, якщо КОЖНЕ слово з пошуку є в цьому рядку
+    return searchWords.every((word) => trainInfo.includes(word))
+  })
 
   return (
-    <div>
-      <h1>Train Booking System</h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Система бронювання квитків</h1>
 
       <input
-        placeholder="Search train / route"
+        className={styles.searchInput}
+        placeholder="Пошук потяга, міста відправлення або прибуття..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />

@@ -1,0 +1,46 @@
+.card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f0f0f0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.trainNumber {
+  margin: 0 0 10px 0;
+  color: #005bbb;
+  font-size: 1.25rem;
+  font-family: sans-serif;
+}
+
+.info {
+  margin: 6px 0;
+  color: #555;
+  font-size: 0.95rem;
+  font-family: sans-serif;
+}
+
+.btn {
+  display: inline-block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background: #005bbb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+  background: #004494;
+}

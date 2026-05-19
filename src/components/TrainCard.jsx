@@ -1,19 +1,20 @@
 import { Link } from "react-router-dom"
+import styles from "./TrainCard.module.css"
 
 function TrainCard({ train }) {
   return (
-    <div className="card">
-      <h3>Train {train.number}</h3>
+    <div className={styles.card}>
+      <h3 className={styles.trainNumber}>Потяг № {train.number}</h3>
 
-      <p>
-        {train.from} → {train.to}
+      <p className={styles.info}>
+        <strong>Маршрут:</strong> {train.from} → {train.to}
       </p>
 
-      <p>Departure: {train.departure}</p>
-      <p>Duration: {train.duration}</p>
+      <p className={styles.info}><strong>Відправлення:</strong> {train.departure}</p>
+      <p className={styles.info}><strong>Тривалість:</strong> {train.duration}</p>
 
       <Link to={`/booking/${train.id}`}>
-        <button>Book ticket</button>
+        <button className={styles.btn}>Обрати місця</button>
       </Link>
     </div>
   )
