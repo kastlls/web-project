@@ -3,7 +3,8 @@ import { useParams, Link } from "react-router-dom"
 import { useBooking } from "../context/BookingContext"
 import trains from "../data/trains"
 import WagonSelector from "../components/WagonSelector"
-import SeatMap from "../components/SeatMap" // Додали імпорт мапи місць
+import SeatMap from "../components/SeatMap"
+import BookingForm from "../components/BookingForm" // Додали імпорт форми
 
 function Booking() {
   const { trainId } = useParams()
@@ -40,10 +41,8 @@ function Booking() {
       {/* Рендеримо інтерактивну мапу місць */}
       <SeatMap />
 
-      {/* На наступному кроці сюди додамо BookingForm */}
-      <div style={{ marginTop: "30px", padding: "20px", border: "2px dashed #bbb", borderRadius: "8px", textAlign: "center", color: "#666" }}>
-        <h3>Тут буде форма бронювання (BookingForm)</h3>
-      </div>
+      {/* Замінили пунктирну заглушку на реальну форму бронювання */}
+      <BookingForm />
     </div>
   )
 }
