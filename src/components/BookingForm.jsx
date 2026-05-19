@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useBooking } from "../context/BookingContext"
-import BookingService from "../services/BookingService" // Імпорт без фігурних дужок
+import { toast } from "react-toastify" // Імпортуємо тост
+import BookingService from "../services/BookingService"
 import styles from "./BookingForm.module.css"
 
 function BookingForm() {
@@ -59,13 +60,8 @@ function BookingForm() {
     const updatedSeats = BookingService.getBookedSeats(selectedTrain.id, selectedWagon)
     setBookedSeats(updatedSeats)
     
-    alert(
-      `Успішно заброньовано!\n` +
-      `Потяг: № ${selectedTrain.number} (${selectedTrain.from} → ${selectedTrain.to})\n` +
-      `Вагон: № ${selectedWagon}\n` +
-      `Місця: ${selectedSeats.join(", ")}\n` +
-      `Пасажир: ${formData.name}`
-    )
+    // Замість alert викликаємо красивий тост
+    toast.success(`Успішно заброньовано місця: ${selectedSeats.join(", ")}!`)
     
     setSelectedSeats([])
     setFormData({ name: "", phone: "", email: "" })
