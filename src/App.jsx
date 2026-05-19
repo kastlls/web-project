@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom"
 import Home from "./pages/Home"
-import Booking from "./pages/Booking" // Додав імпорт
+import Booking from "./pages/Booking"
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/booking/:trainId" element={<Booking />} /> {/* Новий маршрут */}
+      <Route path="/booking/:trainId" element={<Booking />} />
     </Routes>
   )
 }
